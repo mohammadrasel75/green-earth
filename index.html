@@ -4,8 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+ <!-- Tailwind and daisyui-->
+
+ <link rel="stylesheet" type="" href="style.css">
+<link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+  
 </head>
 <body>
+
+    <main class="contaioner mx-auto text center">
+        <h2 class="text-[#4ade80] font-bold text-3xl text-center">Choose Your Trees </h2>
+ 
+     <div class="grid grid-cols-12 gap-8">
+
+
+        <!-- Categories  -->
+        <div class="bg-white card card-body shadow-2xl col-span-3">
+           <h2 class="font-bold text-2xl"> Categories </h2>
+
+           <div class="space-y-3">
+
+          <button class="btn btn-outline w-full" id="allTreesbtn">All Trees</button>
+
+          <!-- Categories container -->
+
+          <div id="categoriesContainer" class="space-y-3">
+            <!-- Categories will be dynamically Loaded here by js  -->
+
+          </div>
+            
+           </div>
+        </div>
+
+        <!-- Trees -->
+        <div class="bg-white card card-body shadow-2xl col-span-6">
+
+          <!-- Tress will rendered -->
+          <div id="treesContainer" class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+
+            <!-- Dynamically added here -->
+            <!-- <div class="card bg-white shadow-sm">
+  <figure>
+    <img
+      src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+      alt="Shoes" />
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">Card Title</h2>
+    <p class="line-clamp-2">A card component has a figure, a body part, 
+      and inside body there are title and actions parts</p>
+      <div class="badge badge-success badge-outline">Success</div>
+    <div class="flex justify-between items-center">
+      <h2 class="font-bold text-xl text-[#4ade80]">$500</h2>
+
+      <button class="btn btn-primary bg-[#4ade80]">Buy Now</button>
+    </div>
+  </div>
+            </div> -->
+          
+
+          </div>
+          <!-- Loading spinner -->
+
+          <div id="loadingSpinner" class="h-[60vh] hidden justify-center items-center">
+                  <span class="loading loading-dots loading-xs"></span>
+
+          </div>
+     
+        </div>
+
+        <!-- Cart -->
+        <div class="bg-green-500 col-span-3">
+            Cart
+        </div>
+     </div>
+    </main>
+
+    <script src="./script.js"></script>
     
 </body>
 </html>
