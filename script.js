@@ -3,14 +3,15 @@ console.log("Hello");
 const categoriesContainer = document.getElementById("categoriesContainer");
 const treesContainer = document.getElementById("treesContainer");
 const loadingSpinner = document.getElementById("loadingSpinner");
+const allTreesbtn = document.getElementById("allTressbtn");
 
 function showLoading(){
   loadingSpinner.classList.remove("hidden");
-  tressContainer.innerHTML = "";
+  treesContainer.innerHTML = "";
 }
 
 function hideLoading(){
-
+  loadingSpinner.classList.add("hidden");
 }
 
 
@@ -34,19 +35,61 @@ data.categories.forEach(category=> {
     console.log(category);
     const btn = document.createElement("button");
     btn.className = "btn btn-outline w-full";
-    btn.textContent = category.category_name
+    btn.textContent = category.category_name;
+    btn.onclick = ()=> selectCategory(category.id, btn);
     categoriesContainer.appendChild(btn);
 
 });
 
 }
 
+async function selectCategory(categoryId, btn){
+  console.log(categoryId, btn);
+  showLoading();
+
+
+
+  const allButtons = document.querySelectorAll(
+    "#categoriesContainer button, #allTreesbtn")
+
+  // console.log(allButtons);
+  allButtons.forEach(btn=> {
+    btn.classList.remove("btn-primary");
+    btn.classList.add("btn-outline");
+  });
+  btn.classList.add("btn-primary");
+  btn.classList.remove("btn-outline");
+
+  const res = await fetch(`https://openapi.programming-hero.com/api/category/${categoryId}`)
+  const data = await res.json();
+  console.log(data); 
+  displayTress(data.plants);
+  hideLoading();
+}
+
+// const allTreesbtn.addEventListener("click", ()=> {
+//   // Update Active Button Style
+//    const allButtons = document.querySelectorAll(
+//     "#categoriesContainer button, #allTreesbtn",);
+
+//   // console.log(allButtons);
+//   allButtons.forEach(btn=> {
+//     btn.classList.remove("btn-primary");
+//     btn.classList.add("btn-outline");
+// });
+//   allTreesbtn.classList.add("btn-primary");
+//     allTreesbtn.classList.remove("btn-outline");
+//      loadTress();
+
+// })
+
 async function loadTress() {
+  showLoading();
   loadingSpinner.classList.remove("hidden");
   loadingSpinner.classList.add("flex");
   const res = await fetch("https://openapi.programming-hero.com/api/plants");
   const data = await res.json();
-
+  loadingSpinner.classList.add("hidden");
  displayTress(data.plants);
   
 }
@@ -80,6 +123,17 @@ function displayTress(tress){
     treesContainer.appendChild(card);        
 
   });
+}
+
+async function openTreeModel(treeId) {
+  console.log(treeId, "treeId");
+  const res = await fetch(`
+    https://openapi.programming-hero.com/api/plant/${treeId}`,)
+
+  const data = await res.json();
+  const plantDetails = data.plants;
+  console.log(plantDetails, "data");
+  treeDetailsModal.showModal();
 }
 loadCategories();
 loadTress();
